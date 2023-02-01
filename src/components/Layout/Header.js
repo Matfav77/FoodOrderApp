@@ -7,7 +7,7 @@ const Header = props => {
     return <>
         <header className={styles.header}>
             <h1>MealMate</h1>
-            <HeaderCartButton />
+            <HeaderCartButton onClick={props.onCartToggler} />
         </header>
         <div className={styles['main-image']}>
             <img src={banner} alt='Table full of food.' />
