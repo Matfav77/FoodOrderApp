@@ -28,6 +28,16 @@ const Cart = props => {
         {hasItems && <button className={styles.button} onClick={orderHandler}>Order</button>}
     </div>
 
+    const submitOrderHandler = (userData) => {
+        fetch('https://react-http-5be81-default-rtdb.europe-west1.firebasedatabase.app/orders.json', {
+            method: 'POST',
+            body: JSON.stringify({
+                user: userData,
+                orderedItems: cartCtx.items
+            })
+        })
+    }
+
     const cartItems = (
         <ul className={styles['cart-items']}>
             {cartCtx.items.map(item => <CartItem
@@ -46,7 +56,7 @@ const Cart = props => {
             <span>Total Amount</span>
             <span>{totalAmount}</span>
         </div>
-        {checkingOut && <Checkout onCancel={props.onCartToggler} />}
+        {checkingOut && <Checkout onConfirm={submitOrderHandler} onCancel={props.onCartToggler} />}
         {!checkingOut && modalActions}
     </Modal>
 }
